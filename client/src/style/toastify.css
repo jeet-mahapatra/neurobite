@@ -1,0 +1,24 @@
+/* Toastify custom styles */
+.Toastify__toast-container {
+    width: 320px;
+  }
+  
+  .Toastify__toast {
+    font-family: sans-serif;
+  }
+  
+  .Toastify__toast--success {
+    background-color: #07bc0c;
+  }
+  
+  .Toastify__toast--error {
+    background-color: #e74c3c;
+  }
+  
+  .Toastify__toast--warning {
+    background-color: #f1c40f;
+  }
+  
+  .Toastify__toast--info {
+    background-color: #3498db;
+  }

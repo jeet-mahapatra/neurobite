@@ -212,7 +212,7 @@ const TodoPage = () => {
       toast.error('Failed to save task order. Please refresh and try again.');
       console.error('Error updating task positions:', err);
       // Refetch tasks to restore order if API call fails
-      fetchTodos();
+      fetchTasks();
     }
   };
 
@@ -235,17 +235,17 @@ const TodoPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white py-12">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white py-6 sm:py-12">
       <ToastContainer position="bottom-right" />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-10"
+          className="text-center mb-6 sm:mb-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl font-bold text-gray-900">Task Manager</h1>
-          <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">Task Manager</h1>
+          <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Organize your day, boost your productivity
           </p>
         </motion.div>
@@ -259,9 +259,9 @@ const TodoPage = () => {
             <span className="block sm:inline">{error}</span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
             {/* Main tasks column */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
               {/* Task inputs */}
               <motion.div 
                 className="bg-white rounded-xl shadow-md overflow-hidden"
@@ -269,17 +269,17 @@ const TodoPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <form onSubmit={handleAddTask}>
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col gap-3">
                       <input
                         type="text"
                         placeholder="Add a new task..."
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
-                        className="flex-1 shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       />
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         <select
                           value={selectedPriority}
                           onChange={(e) => setSelectedPriority(e.target.value)}
@@ -322,11 +322,12 @@ const TodoPage = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <div className="p-4">
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div className="flex items-center space-x-2">
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    {/* Filter buttons - scroll horizontally on mobile */}
+                    <div className="flex items-center w-full overflow-x-auto no-scrollbar space-x-2 pb-2">
                       <button 
                         onClick={() => handleFilterChange('all')}
-                        className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap ${
                           filter === 'all' 
                             ? 'bg-primary-100 text-primary-700' 
                             : 'text-gray-600 hover:bg-gray-100'
@@ -336,7 +337,7 @@ const TodoPage = () => {
                       </button>
                       <button 
                         onClick={() => handleFilterChange('active')}
-                        className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap ${
                           filter === 'active' 
                             ? 'bg-primary-100 text-primary-700' 
                             : 'text-gray-600 hover:bg-gray-100'
@@ -346,7 +347,7 @@ const TodoPage = () => {
                       </button>
                       <button 
                         onClick={() => handleFilterChange('completed')}
-                        className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap ${
                           filter === 'completed' 
                             ? 'bg-primary-100 text-primary-700' 
                             : 'text-gray-600 hover:bg-gray-100'
@@ -355,7 +356,9 @@ const TodoPage = () => {
                         Completed
                       </button>
                     </div>
-                    <div className="w-full sm:w-auto">
+                    
+                    {/* Search input */}
+                    <div className="w-full">
                       <input
                         type="text"
                         placeholder="Search tasks..."
@@ -375,7 +378,7 @@ const TodoPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <div className="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-primary-500 to-blue-500">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-200 bg-gradient-to-r from-primary-500 to-blue-500">
                   <h2 className="text-xl font-bold text-white">
                     {filter === 'completed' ? 'Completed Tasks' : 'Your Tasks'}
                   </h2>
@@ -415,12 +418,12 @@ const TodoPage = () => {
                                       animate={{ opacity: 1, y: 0 }}
                                       exit={{ opacity: 0, x: -10 }}
                                       transition={{ duration: 0.2 }}
-                                      className={`flex items-center justify-between p-4 border ${
+                                      className={`flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border ${
                                         task.completed ? 'bg-gray-50' : 'bg-white'
                                       } rounded-lg shadow-sm`}
                                     >
                                       {editingTask === task._id ? (
-                                        <div className="flex-1 flex items-center">
+                                        <div className="flex-1 flex items-center w-full">
                                           <input
                                             type="text"
                                             value={editText}
@@ -428,7 +431,7 @@ const TodoPage = () => {
                                             className="flex-1 shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                             autoFocus
                                           />
-                                          <div className="ml-2 space-x-2">
+                                          <div className="flex ml-2 space-x-2">
                                             <button
                                               onClick={saveEdit}
                                               className="text-green-500 hover:text-green-700"
@@ -449,7 +452,7 @@ const TodoPage = () => {
                                         </div>
                                       ) : (
                                         <>
-                                          <div className="flex items-center flex-1 min-w-0">
+                                          <div className="flex items-center flex-1 min-w-0 mb-2 sm:mb-0">
                                             <input
                                               type="checkbox"
                                               checked={task.completed}
@@ -457,20 +460,20 @@ const TodoPage = () => {
                                               className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded transition-colors cursor-pointer"
                                             />
                                             
-                                            <div className="ml-3 flex items-center space-x-2">
+                                            <div className="ml-3 flex flex-wrap items-center gap-2">
                                               <span className="text-xl">{getCategoryIcon(task.category)}</span>
                                               <span 
                                                 className={`${
                                                   task.completed 
                                                     ? 'line-through text-gray-400' 
                                                     : 'text-gray-800'
-                                                } transition-all duration-300 truncate`}
+                                                } transition-all duration-300 break-words`}
                                               >
                                                 {task.text}
                                               </span>
                                               
                                               {/* Priority badge */}
-                                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${priorities[task.priority]?.color}`}>
+                                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${priorities[task.priority]?.color}`}>
                                                 {priorities[task.priority]?.name}
                                               </span>
                                               
@@ -483,10 +486,10 @@ const TodoPage = () => {
                                             </div>
                                           </div>
                                           
-                                          <div className="flex space-x-2 ml-2">
+                                          <div className="flex space-x-2 justify-end">
                                             <button
                                               onClick={() => startEdit(task)}
-                                              className="text-blue-500 hover:text-blue-700 transition-colors"
+                                              className="text-blue-500 hover:text-blue-700 transition-colors p-1"
                                               title="Edit"
                                             >
                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -495,7 +498,7 @@ const TodoPage = () => {
                                             </button>
                                             <button
                                               onClick={() => deleteTask(task._id)}
-                                              className="text-red-500 hover:text-red-700 transition-colors"
+                                              className="text-red-500 hover:text-red-700 transition-colors p-1"
                                               title="Delete"
                                             >
                                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -535,7 +538,7 @@ const TodoPage = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Task Stats */}
               <motion.div 
                 className="bg-white rounded-xl shadow-md overflow-hidden"
@@ -543,26 +546,26 @@ const TodoPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <div className="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-500 to-indigo-500">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-200 bg-gradient-to-r from-purple-500 to-indigo-500">
                   <h2 className="text-xl font-bold text-white">Task Stats</h2>
                 </div>
-                <div className="p-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-blue-50 rounded-lg p-4 text-center">
+                <div className="p-4 sm:p-6">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="bg-blue-50 rounded-lg p-3 sm:p-4 text-center">
                       <p className="text-sm text-gray-600">Total</p>
-                      <p className="text-2xl font-bold text-blue-600">{totalTasks}</p>
+                      <p className="text-xl sm:text-2xl font-bold text-blue-600">{totalTasks}</p>
                     </div>
-                    <div className="bg-green-50 rounded-lg p-4 text-center">
+                    <div className="bg-green-50 rounded-lg p-3 sm:p-4 text-center">
                       <p className="text-sm text-gray-600">Completed</p>
-                      <p className="text-2xl font-bold text-green-600">{completedTasks}</p>
+                      <p className="text-xl sm:text-2xl font-bold text-green-600">{completedTasks}</p>
                     </div>
-                    <div className="bg-amber-50 rounded-lg p-4 text-center">
+                    <div className="bg-amber-50 rounded-lg p-3 sm:p-4 text-center">
                       <p className="text-sm text-gray-600">Active</p>
-                      <p className="text-2xl font-bold text-amber-600">{activeTasks}</p>
+                      <p className="text-xl sm:text-2xl font-bold text-amber-600">{activeTasks}</p>
                     </div>
-                    <div className="bg-purple-50 rounded-lg p-4 text-center">
+                    <div className="bg-purple-50 rounded-lg p-3 sm:p-4 text-center">
                       <p className="text-sm text-gray-600">Progress</p>
-                      <p className="text-2xl font-bold text-purple-600">{progress}%</p>
+                      <p className="text-xl sm:text-2xl font-bold text-purple-600">{progress}%</p>
                     </div>
                   </div>
 
@@ -582,18 +585,18 @@ const TodoPage = () => {
                 </div>
               </motion.div>
 
-              {/* Categories */}
+              {/* Categories - Simplified for mobile */}
               <motion.div 
                 className="bg-white rounded-xl shadow-md overflow-hidden"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <div className="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-500 to-teal-500">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-200 bg-gradient-to-r from-green-500 to-teal-500">
                   <h2 className="text-xl font-bold text-white">Categories</h2>
                 </div>
                 <div className="p-4">
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-1 gap-2">
                     <button
                       onClick={() => setTaskCategory('all')}
                       disabled={filter === 'completed'} // Disable category selection when in completed view
@@ -609,58 +612,60 @@ const TodoPage = () => {
                       <span className="font-medium">All Categories</span>
                     </button>
                     
-                    {categories.map((category) => {
-                      const categoryCount = tasks.filter(task => task.category === category.id).length;
-                      const completedCount = tasks.filter(task => task.category === category.id && task.completed).length;
-                      
-                      return (
-                        <button
-                          key={category.id}
-                          onClick={() => setTaskCategory(category.id)}
-                          disabled={filter === 'completed'} // Disable category selection when in completed view
-                          className={`w-full flex items-center justify-between p-2 rounded-md ${
-                            taskCategory === category.id 
-                              ? `${category.color} bg-opacity-50` 
-                              : filter === 'completed'
-                              ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
-                              : 'hover:bg-gray-100'
-                          }`}
-                        >
-                          <div className="flex items-center">
-                            <span className="text-xl mr-2">{category.icon}</span>
-                            <span className="font-medium">{category.name}</span>
-                          </div>
-                          <div className="flex space-x-2">
-                            {filter === 'completed' && (
-                              <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">
-                                {completedCount}
+                    <div className="grid grid-cols-2 gap-2">
+                      {categories.map((category) => {
+                        const categoryCount = tasks.filter(task => task.category === category.id).length;
+                        const completedCount = tasks.filter(task => task.category === category.id && task.completed).length;
+                        
+                        return (
+                          <button
+                            key={category.id}
+                            onClick={() => setTaskCategory(category.id)}
+                            disabled={filter === 'completed'} // Disable category selection when in completed view
+                            className={`flex flex-col items-start p-2 rounded-md ${
+                              taskCategory === category.id 
+                                ? `${category.color} bg-opacity-50` 
+                                : filter === 'completed'
+                                ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
+                                : 'hover:bg-gray-100'
+                            }`}
+                          >
+                            <div className="flex items-center">
+                              <span className="text-xl mr-2">{category.icon}</span>
+                              <span className="font-medium">{category.name}</span>
+                            </div>
+                            <div className="mt-1 flex space-x-2">
+                              {filter === 'completed' && (
+                                <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                                  {completedCount}
+                                </span>
+                              )}
+                              <span className="bg-white bg-opacity-50 text-gray-600 text-xs font-medium px-2 py-0.5 rounded-full">
+                                {categoryCount}
                               </span>
-                            )}
-                            <span className="bg-white bg-opacity-50 text-gray-600 text-xs font-medium px-2 py-0.5 rounded-full">
-                              {categoryCount}
-                            </span>
-                          </div>
-                        </button>
-                      );
-                    })}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Productivity Tips */}
+              {/* Productivity Tips - Only show on larger screens or as collapsible on mobile */}
               <motion.div 
-                className="bg-white rounded-xl shadow-md overflow-hidden"
+                className="bg-white rounded-xl shadow-md overflow-hidden hidden sm:block"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <div className="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-amber-500 to-orange-500">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-200 bg-gradient-to-r from-amber-500 to-orange-500">
                   <h2 className="text-xl font-bold text-white">Productivity Tips</h2>
                 </div>
-                <div className="p-6">
+                <div className="p-4">
                   <div className="space-y-4">
                     <div className="flex items-start">
-                      <div className="bg-amber-100 rounded-full p-2 mr-3">
+                      <div className="bg-amber-100 rounded-full p-2 mr-3 flex-shrink-0">
                         <span className="text-lg">⚡</span>
                       </div>
                       <div>
@@ -670,7 +675,7 @@ const TodoPage = () => {
                     </div>
                     
                     <div className="flex items-start">
-                      <div className="bg-blue-100 rounded-full p-2 mr-3">
+                      <div className="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
                         <span className="text-lg">⏰</span>
                       </div>
                       <div>
@@ -680,7 +685,7 @@ const TodoPage = () => {
                     </div>
                     
                     <div className="flex items-start">
-                      <div className="bg-green-100 rounded-full p-2 mr-3">
+                      <div className="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0">
                         <span className="text-lg">📝</span>
                       </div>
                       <div>

@@ -1,5 +1,5 @@
 🧠 NeuroBite - Mental Wellness & Productivity Companion
-<div align="center"> <img src="client/public/favicon.ico" alt="NeuroBite Logo" width="120" /> <br /> <p><strong>Balance Your Mind, Optimize Your Productivity</strong></p> </div>
+<div align="center"> 🧠 NeuroBite  <br /> <p><strong>Balance Your Mind, Optimize Your Productivity</strong></p> </div>
 ✨ Overview
 NeuroBite is a comprehensive web application that integrates mental wellness tracking with productivity management. The platform offers users a holistic approach to improving their mental health while optimizing daily task management through an intuitive, responsive interface.
 
